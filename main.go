@@ -119,7 +119,7 @@ func main() {
 		// if return false then the algorithm stop
 
 		// Stop if cycle number is higher than 80
-		return g.Cycle < 80 &&
+		return g.Cycle < 200 &&
 			// or if there were no update for at least 20 cycles
 			g.Cycle-g.LastUpdate < 20 &&
 			// or if
