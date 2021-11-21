@@ -26,7 +26,7 @@ type GA struct {
 	Init func() Population
 	Fit  func(*Chromosome)
 
-	Stop func(*GA) bool
+	Continue func(*GA) bool
 
 	Select   func(*Population) Population
 	Cross    func(*Population) Population
@@ -46,7 +46,7 @@ func (algorithm *GA) Run() {
 
 	algorithm.Best = &algorithm.Pop[0]
 
-	for algorithm.Stop(algorithm) {
+	for algorithm.Continue(algorithm) {
 		// Check which is the new best chromosome
 
 		parents := algorithm.Select(&algorithm.Pop)
@@ -114,10 +114,9 @@ func main() {
 		}
 	}
 
-	algorithm.Stop = func(g *GA) bool {
+	algorithm.Continue = func(g *GA) bool {
 		// Return true if the algorithm should continue
-		// if return false then the algorithm stops
-		// TODO: Change name to Continue
+		// if return false then the algorithm stop
 
 		// Stop if cycle number is higher than 80
 		return g.Cycle < 80 &&
