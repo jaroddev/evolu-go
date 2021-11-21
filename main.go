@@ -40,8 +40,8 @@ func (algorithm *GA) Run() {
 
 	algorithm.Pop = algorithm.Init()
 
-	for _, chromosome := range algorithm.Pop {
-		algorithm.Fit(&chromosome)
+	for index := range algorithm.Pop {
+		algorithm.Fit(&algorithm.Pop[index])
 	}
 
 	algorithm.Best = &algorithm.Pop[0]
@@ -54,7 +54,7 @@ func (algorithm *GA) Run() {
 		children := algorithm.Cross(&parents)
 
 		for index := range children {
-			algorithm.Fit(&algorithm.Pop[index])
+			algorithm.Fit(&children[index])
 		}
 
 		algorithm.Pop = append(algorithm.Pop, children...)
