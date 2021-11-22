@@ -1,0 +1,82 @@
+package genetic
+
+import (
+	. "evolugo/chromosomes"
+	"fmt"
+	"sort"
+)
+
+type GA struct {
+	Pop Population
+	// Best chromosome
+	Best  *Chromosome
+	Cycle int
+	// Last cycle the
+	LastUpdate int
+
+	Init func() Population
+	Fit  func(*Chromosome)
+
+	Continue func(*GA) bool
+
+	Select   func(*Population) Population
+	Cross    func(*Population) Population
+	Mutation func(*Chromosome)
+	Survive  func(*Population)
+}
+
+func (algorithm *GA) Run() {
+	// Always init cycle to zero
+	algorithm.Cycle = 1
+
+	algorithm.Pop = algorithm.Init()
+
+	for index := range algorithm.Pop {
+		algorithm.Fit(&algorithm.Pop[index])
+	}
+
+	algorithm.Best = &algorithm.Pop[0]
+
+	for algorithm.Continue(algorithm) {
+		// Check which is the new best chromosome
+
+		parents := algorithm.Select(&algorithm.Pop)
+
+		children := algorithm.Cross(&parents)
+
+		for index := range children {
+			algorithm.Fit(&children[index])
+		}
+
+		algorithm.Pop = append(algorithm.Pop, children...)
+
+		// descending sort
+		sort.Slice(algorithm.Pop, func(i, j int) bool {
+			return algorithm.Pop[j].Fitness < algorithm.Pop[i].Fitness
+		})
+
+		algorithm.Best = &algorithm.Pop[0]
+
+		algorithm.Survive(&algorithm.Pop)
+
+		algorithm.Cycle++
+
+		fmt.Println("number of individuals in population", len(algorithm.Pop))
+		fmt.Println("alleles of the best indiidual", algorithm.Best.Alleles)
+
+		fmt.Println("best fitness", algorithm.Best.Fitness)
+	}
+
+}
+
+type GAOption func(*GA) *GA
+
+func NewGA(options ...GAOption) *GA {
+	var algorithm GA
+
+	for _, option := range options {
+		option(&algorithm)
+	}
+
+	return &algorithm
+}
