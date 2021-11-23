@@ -2,7 +2,6 @@ package genetic
 
 import (
 	. "evolugo/chromosomes"
-	"fmt"
 	"sort"
 )
 
@@ -23,6 +22,18 @@ type GA struct {
 	Cross    func(*Population) Population
 	Mutation func(*Chromosome)
 	Survive  func(*Population)
+}
+
+type GAOption func(*GA)
+
+func NewGA(options ...GAOption) *GA {
+	var algorithm GA
+
+	for _, option := range options {
+		option(&algorithm)
+	}
+
+	return &algorithm
 }
 
 func (algorithm *GA) Run() {
@@ -60,23 +71,6 @@ func (algorithm *GA) Run() {
 		algorithm.Survive(&algorithm.Pop)
 
 		algorithm.Cycle++
-
-		fmt.Println("number of individuals in population", len(algorithm.Pop))
-		fmt.Println("alleles of the best indiidual", algorithm.Best.Alleles)
-
-		fmt.Println("best fitness", algorithm.Best.Fitness)
 	}
 
-}
-
-type GAOption func(*GA) *GA
-
-func NewGA(options ...GAOption) *GA {
-	var algorithm GA
-
-	for _, option := range options {
-		option(&algorithm)
-	}
-
-	return &algorithm
 }

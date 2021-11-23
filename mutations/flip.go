@@ -10,7 +10,7 @@ type Mutation func(*Chromosome)
 func Flip(flips int) Mutation {
 
 	return func(c *Chromosome) {
-		if len(c.Alleles) <= flips {
+		if flips > len(c.Alleles) {
 			panic("Not enough elements to flip")
 		}
 
@@ -23,7 +23,7 @@ func Flip(flips int) Mutation {
 			indexes[i], indexes[j] = indexes[j], indexes[i]
 		})
 
-		picks := indexes[:flips+1]
+		picks := indexes[:flips]
 
 		for _, pick := range picks {
 			c.Alleles[pick] = !c.Alleles[pick]
