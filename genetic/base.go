@@ -60,6 +60,7 @@ func (algorithm *GA) Run() {
 		children := algorithm.Cross(&parents)
 
 		for index := range children {
+			algorithm.Mutation(&children[index])
 			algorithm.Fit(&children[index])
 		}
 
