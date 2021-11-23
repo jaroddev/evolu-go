@@ -19,12 +19,12 @@ func main() {
 		WithTemplates(&OneMax{
 			InitPopLength: 2,
 			AlleleLength:  8,
-			MaxCycle:      200,
-			NotUpdatedFor: 200,
+			MaxCycle:      100,
+			NotUpdatedFor: -1,
 		}),
 	)
 
-	algorithm.Mutation = Flip(10)
+	algorithm.Mutation = Flip(1)
 
 	algorithm.Select = SelectFirst(2)
 
