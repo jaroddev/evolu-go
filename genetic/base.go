@@ -2,6 +2,10 @@ package genetic
 
 import (
 	. "evolugo/chromosomes"
+	. "evolugo/crossovers"
+	. "evolugo/mutations"
+	. "evolugo/selections"
+
 	"sort"
 )
 
@@ -18,9 +22,9 @@ type GA struct {
 
 	Continue func(*GA) bool
 
-	Select   func(*Population) Population
-	Cross    func(*Population) Population
-	Mutation func(*Chromosome)
+	Select   Selection
+	Cross    CrossOver
+	Mutation Mutation
 	Survive  func(*Population)
 }
 
