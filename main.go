@@ -4,6 +4,7 @@ import (
 	. "evolugo/chromosomes"
 	. "evolugo/crossovers"
 	. "evolugo/genetic"
+	. "evolugo/insertions"
 	. "evolugo/mutations"
 	. "evolugo/selections"
 	"fmt"
@@ -30,6 +31,8 @@ func main() {
 
 	// Too Similar to SelectFirst
 	algorithm.Cross = CloneFirst(2)
+
+	algorithm.Insert = AddChildren
 
 	algorithm.Survive = func(p *Population) {}
 
