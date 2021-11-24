@@ -77,7 +77,11 @@ func (algorithm *GA) Run() {
 
 		algorithm.Survive(&algorithm.Pop)
 
+		// New Generation
 		algorithm.Cycle++
+		for index := range algorithm.Pop {
+			algorithm.Pop[index].Age++
+		}
 	}
 
 }
