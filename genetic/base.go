@@ -3,6 +3,7 @@ package genetic
 import (
 	. "evolugo/chromosomes"
 	. "evolugo/crossovers"
+	. "evolugo/insertions"
 	. "evolugo/mutations"
 	. "evolugo/selections"
 
@@ -25,6 +26,7 @@ type GA struct {
 	Select   Selection
 	Cross    CrossOver
 	Mutation Mutation
+	Insert   Insertion
 	Survive  func(*Population)
 }
 
@@ -64,7 +66,7 @@ func (algorithm *GA) Run() {
 			algorithm.Fit(&children[index])
 		}
 
-		algorithm.Pop = append(algorithm.Pop, children...)
+		algorithm.Pop = algorithm.Insert(algorithm.Pop, children)
 
 		// descending sort
 		sort.Slice(algorithm.Pop, func(i, j int) bool {

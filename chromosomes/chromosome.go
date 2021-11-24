@@ -1,7 +1,7 @@
 package chromosomes
 
 type Chromosome struct {
-	Age     int8
+	Age     int
 	Alleles []bool
 	Fitness float64
 }
