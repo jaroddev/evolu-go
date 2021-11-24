@@ -4,9 +4,9 @@ import (
 	. "evolugo/chromosomes"
 )
 
-type Insertion func(parents Population, children Population) Population
+type Insertion func(Population, Population) Population
 
-func AddChildren(parents Population, children Population) Population {
-	parents = append(parents, children...)
-	return parents
+func AddChildren(pop Population, children Population) Population {
+	pop = append(pop, children...)
+	return pop
 }
