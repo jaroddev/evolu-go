@@ -60,3 +60,18 @@ func TestPanicWhenMoreFlipsThanAlleles(t *testing.T) {
 		tenFlips(&chromosome)
 	})
 }
+
+func TestBitFlipWithOneAlleledChromosome(t *testing.T) {
+	oneAllele := Chromosome{
+		Age:     0,
+		Fitness: 0,
+		Alleles: []bool{false},
+	}
+
+	flip := BitFlip()
+
+	flip(&oneAllele)
+
+	assert.Equal(t, len(oneAllele.Alleles), 1)
+	assert.Contains(t, oneAllele.Alleles, true)
+}
