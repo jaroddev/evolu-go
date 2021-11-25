@@ -2,6 +2,7 @@ package mutations
 
 import (
 	. "evolugo/chromosomes"
+	"fmt"
 	"math/rand"
 )
 
@@ -30,4 +31,22 @@ func Flip(flips int) Mutation {
 		}
 	}
 
+}
+
+// How to test this ??? like really ???
+func BitFlip() Mutation {
+	return func(c *Chromosome) {
+		// If higher than this then flip the allele
+		mutationProbability := 1 - 1/len(c.Alleles)
+
+		fmt.Println("proba ", mutationProbability)
+
+		// Try to mutate each flips
+		for index := range c.Alleles {
+			probabilityChromosomeMutate := rand.Float64()
+			if probabilityChromosomeMutate > float64(mutationProbability) {
+				c.Alleles[index] = !c.Alleles[index]
+			}
+		}
+	}
 }
