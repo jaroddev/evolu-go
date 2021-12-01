@@ -22,11 +22,8 @@ func Uniform(childrenNumber int) CrossOver {
 		for childIndex := 0; childIndex < childrenNumber; childIndex++ {
 
 			// Create a child
-			child := Chromosome{
-				Age:     1,
-				Fitness: 0,
-				Alleles: (*pop)[childIndex].Alleles,
-			}
+			child := NewChromosome()
+			child.Alleles = make([]bool, len((*pop)[childIndex].Alleles))
 
 			for alleleIndex := range child.Alleles {
 				chosenParent := pickAParentWithUniformProbability(pop)

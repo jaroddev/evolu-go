@@ -6,4 +6,12 @@ type Chromosome struct {
 	Fitness float64
 }
 
+func NewChromosome() Chromosome {
+	return Chromosome{
+		Age:     0,
+		Alleles: nil,
+		Fitness: 0,
+	}
+}
+
 type Population []Chromosome

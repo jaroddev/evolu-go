@@ -17,15 +17,18 @@ func (o *OneMax) Init() Population {
 	pop := make(Population, o.InitPopLength)
 
 	for index := range pop {
-		pop[index].Alleles = make([]bool, o.AlleleLength)
+		chromosome := NewChromosome()
+		chromosome.Alleles = make([]bool, o.AlleleLength)
 
-		for locus := range pop[index].Alleles {
+		for locus := range chromosome.Alleles {
 			if rand.Intn(2) == 1 {
-				pop[index].Alleles[locus] = true
+				chromosome.Alleles[locus] = true
 			} else {
-				pop[index].Alleles[locus] = false
+				chromosome.Alleles[locus] = false
 			}
 		}
+
+		pop[index] = chromosome
 	}
 
 	return pop
