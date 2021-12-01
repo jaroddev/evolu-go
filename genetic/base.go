@@ -41,9 +41,15 @@ func NewGA(options ...GAOption) *GA {
 	return &algorithm
 }
 
+func (algorithm *GA) cycleEnd() {
+	algorithm.Cycle++
+	for index := range algorithm.Pop {
+		algorithm.Pop[index].Age++
+	}
+}
+
 func (algorithm *GA) Run() {
-	// Always init cycle to zero
-	algorithm.Cycle = 1
+	algorithm.Cycle = 0
 
 	algorithm.Pop = algorithm.Init()
 
@@ -54,8 +60,6 @@ func (algorithm *GA) Run() {
 	algorithm.Best = &algorithm.Pop[0]
 
 	for algorithm.Continue(algorithm) {
-		// Check which is the new best chromosome
-
 		parents := algorithm.Select(&algorithm.Pop)
 
 		children := algorithm.Cross(&parents)
@@ -74,11 +78,7 @@ func (algorithm *GA) Run() {
 
 		algorithm.Best = &algorithm.Pop[0]
 
-		// New Generation
-		algorithm.Cycle++
-		for index := range algorithm.Pop {
-			algorithm.Pop[index].Age++
-		}
+		algorithm.cycleEnd()
 	}
 
 }

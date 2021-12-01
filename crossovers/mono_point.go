@@ -6,11 +6,8 @@ import (
 )
 
 func combineChromosomeFromIndex(firstParent Chromosome, secondParent Chromosome, separationPoint int) Chromosome {
-	child := Chromosome{
-		Age:     1,
-		Fitness: 0,
-		Alleles: make([]bool, 0),
-	}
+	child := NewChromosome()
+	child.Alleles = make([]bool, 0)
 
 	for i := 0; i < separationPoint; i++ {
 		child.Alleles = append(child.Alleles, firstParent.Alleles[i])
