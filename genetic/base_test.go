@@ -1,8 +1,8 @@
 package genetic
 
 import (
-	. "evolugo/chromosomes"
 	. "evolugo/crossovers"
+	"evolugo/insertions"
 	. "evolugo/mutations"
 	. "evolugo/selections"
 	"testing"
@@ -27,7 +27,7 @@ func getValidAlgorithm() *GA {
 	algorithm.Select = SelectFirst(2)
 	algorithm.Cross = CloneFirst(2)
 	algorithm.Mutation = Flip(1)
-	algorithm.Survive = func(p *Population) {}
+	algorithm.Insert = insertions.ReplaceIfBetter
 
 	return algorithm
 }
@@ -63,9 +63,9 @@ func TestAlgorithmWithoutMutation(t *testing.T) {
 	assert.Panics(t, func() { algorithm.Run() })
 }
 
-func TestAlgorithmWithoutSurvive(t *testing.T) {
+func TestAlgorithmWithoutInsert(t *testing.T) {
 	algorithm := getValidAlgorithm()
-	algorithm.Survive = nil
+	algorithm.Insert = nil
 
 	assert.Panics(t, func() { algorithm.Run() })
 }

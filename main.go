@@ -1,7 +1,6 @@
 package main
 
 import (
-	. "evolugo/chromosomes"
 	. "evolugo/crossovers"
 	. "evolugo/genetic"
 	. "evolugo/insertions"
@@ -33,8 +32,6 @@ func main() {
 	algorithm.Cross = CloneFirst(2)
 
 	algorithm.Insert = AddChildren
-
-	algorithm.Survive = func(p *Population) {}
 
 	algorithm.Run()
 
