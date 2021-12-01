@@ -27,7 +27,6 @@ type GA struct {
 	Cross    CrossOver
 	Mutation Mutation
 	Insert   Insertion
-	Survive  func(*Population)
 }
 
 type GAOption func(*GA)
@@ -74,8 +73,6 @@ func (algorithm *GA) Run() {
 		})
 
 		algorithm.Best = &algorithm.Pop[0]
-
-		algorithm.Survive(&algorithm.Pop)
 
 		// New Generation
 		algorithm.Cycle++
