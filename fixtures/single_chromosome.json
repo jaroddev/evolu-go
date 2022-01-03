@@ -1,0 +1,12 @@
+[
+    {
+        "age": 1,
+        "fitness": 2,
+        "alleles": [
+            true,
+            false,
+            true,
+            false
+        ]
+    }
+]

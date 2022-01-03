@@ -14,4 +14,22 @@ func NewChromosome() Chromosome {
 	}
 }
 
-type Population []Chromosome
+func GetChildOf(chromosome Chromosome) Chromosome {
+	child := NewChromosome()
+	child.Alleles = make([]bool, 0)
+
+	for i := range chromosome.Alleles {
+		child.Alleles = append(child.Alleles, chromosome.Alleles[i])
+	}
+
+	return child
+}
+
+func GetCopyOf(chromosome Chromosome) Chromosome {
+	copy := GetChildOf(chromosome)
+
+	copy.Age = chromosome.Age
+	copy.Fitness = chromosome.Fitness
+
+	return copy
+}
