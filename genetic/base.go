@@ -6,8 +6,6 @@ import (
 	. "evolugo/insertions"
 	. "evolugo/mutations"
 	. "evolugo/selections"
-
-	"sort"
 )
 
 type GA struct {
@@ -49,18 +47,20 @@ func (algorithm *GA) cycleEnd() {
 }
 
 func (algorithm *GA) Run() {
+	filter := &GetBest{}
 	algorithm.Cycle = 0
-
 	algorithm.Pop = algorithm.Init()
 
 	for index := range algorithm.Pop {
 		algorithm.Fit(&algorithm.Pop[index])
 	}
 
-	algorithm.Best = &algorithm.Pop[0]
+	algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
 
 	for algorithm.Continue(algorithm) {
 		parents := algorithm.Select(&algorithm.Pop)
+
+		copy(parents, parents)
 
 		children := algorithm.Cross(&parents)
 
@@ -71,12 +71,7 @@ func (algorithm *GA) Run() {
 
 		algorithm.Pop = algorithm.Insert(algorithm.Pop, children)
 
-		// descending sort
-		sort.Slice(algorithm.Pop, func(i, j int) bool {
-			return algorithm.Pop[j].Fitness < algorithm.Pop[i].Fitness
-		})
-
-		algorithm.Best = &algorithm.Pop[0]
+		algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
 
 		algorithm.cycleEnd()
 	}
