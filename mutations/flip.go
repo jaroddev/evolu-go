@@ -2,7 +2,6 @@ package mutations
 
 import (
 	. "evolugo/chromosomes"
-	"fmt"
 	"math/rand"
 )
 
@@ -15,15 +14,7 @@ func Flip(flips int) Mutation {
 			panic("Not enough elements to flip")
 		}
 
-		indexes := make([]int, len(c.Alleles))
-		for index := range indexes {
-			indexes[index] = index
-		}
-
-		rand.Shuffle(len(indexes), func(i, j int) {
-			indexes[i], indexes[j] = indexes[j], indexes[i]
-		})
-
+		indexes := rand.Perm(len(c.Alleles))
 		picks := indexes[:flips]
 
 		for _, pick := range picks {
@@ -38,8 +29,6 @@ func BitFlip() Mutation {
 	return func(c *Chromosome) {
 		// If higher than this then flip the allele
 		mutationProbability := 1 - 1/len(c.Alleles)
-
-		fmt.Println("proba ", mutationProbability)
 
 		// Try to mutate each flips
 		for index := range c.Alleles {
