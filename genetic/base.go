@@ -2,11 +2,23 @@ package genetic
 
 import (
 	. "evolugo/chromosomes"
-	. "evolugo/crossovers"
-	. "evolugo/insertions"
-	. "evolugo/mutations"
-	. "evolugo/selections"
 )
+
+type Mutation interface {
+	Mutate(c *Chromosome)
+}
+
+type Selection interface {
+	Select(p *Population) Population
+}
+
+type CrossOver interface {
+	Cross(p *Population) Population
+}
+
+type Insertion interface {
+	Insert(Population, Population) Population
+}
 
 type GA struct {
 	Pop Population
@@ -21,10 +33,10 @@ type GA struct {
 
 	Continue func(*GA) bool
 
-	Select   Selection
-	Cross    CrossOver
-	Mutation Mutation
-	Insert   Insertion
+	Selection Selection
+	Crossover CrossOver
+	Mutation  Mutation
+	Insertion Insertion
 }
 
 type GAOption func(*GA)
@@ -58,18 +70,18 @@ func (algorithm *GA) Run() {
 	algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
 
 	for algorithm.Continue(algorithm) {
-		parents := algorithm.Select(&algorithm.Pop)
+		originalParent := algorithm.Selection.Select(&algorithm.Pop)
+		parents := make(Population, len(originalParent))
+		copy(parents, originalParent)
 
-		copy(parents, parents)
-
-		children := algorithm.Cross(&parents)
+		children := algorithm.Crossover.Cross(&parents)
 
 		for index := range children {
-			algorithm.Mutation(&children[index])
+			algorithm.Mutation.Mutate(&children[index])
 			algorithm.Fit(&children[index])
 		}
 
-		algorithm.Pop = algorithm.Insert(algorithm.Pop, children)
+		algorithm.Pop = algorithm.Insertion.Insert(algorithm.Pop, children)
 
 		algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
 

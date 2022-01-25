@@ -36,9 +36,10 @@ func getUniformParent() Population {
 
 func TestUniform(t *testing.T) {
 	parents := getUniformParent()
-	uniformMutation := Uniform(2)
 
-	children := uniformMutation(&parents)
+	uniformMutation := Uniform{ChildrenNumber: 2}
+
+	children := uniformMutation.Cross(&parents)
 
 	assert.Equal(t, len(children), 2)
 }

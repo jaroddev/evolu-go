@@ -77,8 +77,11 @@ func getLargeTestPopulation() Population {
 
 func TestTwoChromosomeWereReturned(t *testing.T) {
 	pop := getLargeTestPopulation()
-	selection := Tournament(5, 2)
+	selection := Tournament{
+		Participant: 5,
+		Winner:      2,
+	}
 
-	parents := selection(&pop)
+	parents := selection.Select(&pop)
 	assert.Equal(t, len(parents), 2)
 }

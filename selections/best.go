@@ -4,14 +4,14 @@ import (
 	. "evolugo/chromosomes"
 )
 
-type Selection func(p *Population) Population
+type SelectFirst struct {
+	ParentNumber int
+}
 
-func SelectFirst(parentNumber int) Selection {
-	return func(p *Population) Population {
-		if parentNumber > len((*p)) || parentNumber > cap((*p)) {
-			return (*p)[:len((*p))]
-		}
-
-		return (*p)[:parentNumber]
+func (selection *SelectFirst) Select(p *Population) Population {
+	if selection.ParentNumber > len((*p)) || selection.ParentNumber > cap((*p)) {
+		return (*p)[:len((*p))]
 	}
+
+	return (*p)[:selection.ParentNumber]
 }

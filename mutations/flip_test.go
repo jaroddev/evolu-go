@@ -24,9 +24,11 @@ func TestDefaultTestChromosomeHaveNoTrue(t *testing.T) {
 
 func TestOneFlip(t *testing.T) {
 	chromosome := getTestChromosome()
-	oneFlip := Flip(1)
+	oneFlip := &Flip{
+		Frequency: 1,
+	}
 
-	oneFlip(&chromosome)
+	oneFlip.Mutate(&chromosome)
 
 	assert.Contains(t, chromosome.Alleles, true)
 
@@ -36,8 +38,10 @@ func TestThreeFlips(t *testing.T) {
 	chromosome := getTestChromosome()
 
 	flips := 3
-	threeFlips := Flip(flips)
-	threeFlips(&chromosome)
+	threeFlips := &Flip{
+		Frequency: flips,
+	}
+	threeFlips.Mutate(&chromosome)
 
 	fitness := 0
 	for _, allele := range chromosome.Alleles {
@@ -54,10 +58,12 @@ func TestPanicWhenMoreFlipsThanAlleles(t *testing.T) {
 	chromosome := getTestChromosome()
 
 	flips := 10
-	tenFlips := Flip(flips)
+	tenFlips := &Flip{
+		Frequency: flips,
+	}
 
 	assert.Panics(t, func() {
-		tenFlips(&chromosome)
+		tenFlips.Mutate(&chromosome)
 	})
 }
 
@@ -68,9 +74,9 @@ func TestBitFlipWithOneAlleledChromosome(t *testing.T) {
 		Alleles: []bool{false},
 	}
 
-	flip := BitFlip()
+	flip := &BitFlip{}
 
-	flip(&oneAllele)
+	flip.Mutate(&oneAllele)
 
 	assert.Equal(t, len(oneAllele.Alleles), 1)
 	assert.Contains(t, oneAllele.Alleles, true)

@@ -4,14 +4,17 @@ import (
 	. "evolugo/chromosomes"
 )
 
-type CrossOver func(p *Population) Population
+type Clone struct {
+	ChildrenNumber int
+}
 
-func CloneFirst(childrenNumber int) CrossOver {
-	return func(p *Population) Population {
-		if childrenNumber > len((*p)) || childrenNumber > cap((*p)) {
-			return (*p)[:len((*p))]
-		}
+// Should be cloning best only ???
+func (c *Clone) Cross(pop *Population) Population {
 
-		return (*p)[:childrenNumber]
+	if c.ChildrenNumber > len((*pop)) || c.ChildrenNumber > cap((*pop)) {
+		return (*pop)[:len((*pop))]
 	}
+
+	return (*pop)[:c.ChildrenNumber]
+
 }

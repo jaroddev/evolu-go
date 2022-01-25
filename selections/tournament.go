@@ -4,14 +4,20 @@ import (
 	. "evolugo/chromosomes"
 )
 
-func Tournament(tournamentParticipant, winner int) Selection {
+type Tournament struct {
+	Participant int
+	Winner      int
+}
 
-	return func(pop *Population) Population {
-		// Randomly
-		tournament := RandomSelection(tournamentParticipant)
-		best := SelectFirst(winner)
-
-		member := tournament(pop)
-		return best(&member)
+func (t *Tournament) Select(pop *Population) Population {
+	// Randomly
+	random := Random{
+		ParentNumber: t.Participant,
 	}
+	selection := SelectFirst{
+		ParentNumber: t.Winner,
+	}
+
+	participant := random.Select(pop)
+	return selection.Select(&participant)
 }

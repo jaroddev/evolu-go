@@ -24,18 +24,21 @@ func main() {
 		}),
 	)
 
-	algorithm.Mutation = Flip(1)
+	algorithm.Mutation = &Flip{Frequency: 1}
 
-	algorithm.Select = SelectFirst(2)
+	algorithm.Selection = &SelectFirst{ParentNumber: 2}
 
 	// Too Similar to SelectFirst
-	algorithm.Cross = CloneFirst(2)
+	algorithm.Crossover = &Clone{ChildrenNumber: 2}
 
-	algorithm.Insert = AddChildren
+	algorithm.Insertion = &Add{}
 
 	algorithm.Run()
 
 	for index, chromosome := range algorithm.Pop {
 		fmt.Println(index, " : ", chromosome)
 	}
+
+	fmt.Println("Best is => ", algorithm.Best)
+
 }

@@ -84,7 +84,8 @@ func TestChildrenInserted(t *testing.T) {
 	parents := getParents()
 	children := getChildren()
 
-	newParents := ReplaceIfBetter(parents, children)
+	insertion := Elitist{}
+	newParents := insertion.Insert(parents, children)
 
 	assert.Equal(t, len(parents), len(newParents))
 	assert.Subset(t, newParents, children)
@@ -95,7 +96,8 @@ func TestOneReplaced(t *testing.T) {
 	children := getOneGoodOneBadChildren()
 	childrenCopy := getOneGoodOneBadChildren()
 
-	newParents := ReplaceIfBetter(parents, children)
+	insertion := Elitist{}
+	newParents := insertion.Insert(parents, children)
 
 	assert.Equal(t, len(parents), len(newParents))
 
@@ -107,7 +109,8 @@ func TestNoneReplaced(t *testing.T) {
 	parents := getParents()
 	children := getOneBadChild()
 
-	newParents := ReplaceIfBetter(parents, children)
+	insertion := Elitist{}
+	newParents := insertion.Insert(parents, children)
 
 	assert.Equal(t, len(parents), len(newParents))
 	assert.NotContains(t, newParents, children[0])

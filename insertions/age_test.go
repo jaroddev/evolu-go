@@ -103,7 +103,9 @@ func TestOldestReplaced(t *testing.T) {
 	parents := getOldParents()
 	children := getNewChildren()
 
-	newParents := ReplaceOldest(parents, children)
+	insertion := ReplaceOldest{}
+
+	newParents := insertion.Insert(parents, children)
 
 	assert.Equal(t, len(parents), len(newParents))
 	assert.Subset(t, newParents, children)

@@ -5,7 +5,9 @@ import (
 	"sort"
 )
 
-func ReplaceIfBetter(pop Population, children Population) Population {
+type Elitist struct{}
+
+func (e *Elitist) Insert(pop Population, children Population) Population {
 	sort.Slice(pop, func(i, j int) bool {
 		return pop[i].Fitness < pop[j].Fitness
 	})

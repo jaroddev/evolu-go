@@ -4,6 +4,8 @@ import (
 	. "evolugo/chromosomes"
 )
 
+type ReplaceOldest struct{}
+
 func getOldest(pop Population, numberToReplace int) []int {
 	indexesToBeReplaced := make([]int, 0)
 
@@ -38,7 +40,7 @@ func getOldest(pop Population, numberToReplace int) []int {
 	return indexesToBeReplaced
 }
 
-func ReplaceOldest(pop Population, children Population) Population {
+func (r *ReplaceOldest) Insert(pop Population, children Population) Population {
 
 	indexesToBeReplaced := getOldest(pop, len(children))
 

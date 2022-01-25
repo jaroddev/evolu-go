@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	cloneTwo  CrossOver = CloneFirst(2)
-	cloneFour CrossOver = CloneFirst(4)
+	cloneTwo  Clone = Clone{ChildrenNumber: 2}
+	cloneFour Clone = Clone{ChildrenNumber: 4}
 
 	parents Population = Population{
 		Chromosome{
@@ -37,11 +37,11 @@ var (
 )
 
 func TestCloneTwo(t *testing.T) {
-	children := cloneTwo(&parents)
+	children := cloneTwo.Cross(&parents)
 	assert.Equal(t, len(children), 2)
 }
 
 func TestTryToCloneTooManyChromosome(t *testing.T) {
-	children := cloneFour(&parents)
+	children := cloneFour.Cross(&parents)
 	assert.NotEqual(t, len(children), 4)
 }

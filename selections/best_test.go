@@ -8,8 +8,12 @@ import (
 )
 
 var (
-	selectTwo  Selection = SelectFirst(2)
-	selectFour Selection = SelectFirst(4)
+	selectTwo SelectFirst = SelectFirst{
+		ParentNumber: 2,
+	}
+	selectFour SelectFirst = SelectFirst{
+		ParentNumber: 4,
+	}
 
 	parents Population = Population{
 		Chromosome{
@@ -37,11 +41,11 @@ var (
 )
 
 func TestSelectTwo(t *testing.T) {
-	children := selectTwo(&parents)
+	children := selectTwo.Select(&parents)
 	assert.Equal(t, len(children), 2)
 }
 
 func TestSelectTooMany(t *testing.T) {
-	children := selectFour(&parents)
+	children := selectFour.Select(&parents)
 	assert.NotEqual(t, len(children), 4)
 }

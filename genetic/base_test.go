@@ -24,10 +24,14 @@ func getValidOneMaxTemplate() *GA {
 func getValidAlgorithm() *GA {
 	algorithm := getValidOneMaxTemplate()
 
-	algorithm.Select = SelectFirst(2)
-	algorithm.Cross = CloneFirst(2)
-	algorithm.Mutation = Flip(1)
-	algorithm.Insert = insertions.ReplaceIfBetter
+	algorithm.Selection = &SelectFirst{
+		ParentNumber: 2,
+	}
+	algorithm.Crossover = &Clone{ChildrenNumber: 2}
+	algorithm.Mutation = &Flip{
+		Frequency: 1,
+	}
+	algorithm.Insertion = &insertions.Elitist{}
 
 	return algorithm
 }
@@ -45,14 +49,14 @@ func TestAlgorithmWithTemplatePanic(t *testing.T) {
 
 func TestAlgorithmWithoutSelection(t *testing.T) {
 	algorithm := getValidAlgorithm()
-	algorithm.Select = nil
+	algorithm.Selection = nil
 
 	assert.Panics(t, func() { algorithm.Run() })
 }
 
 func TestAlgorithmWithoutCross(t *testing.T) {
 	algorithm := getValidAlgorithm()
-	algorithm.Cross = nil
+	algorithm.Crossover = nil
 
 	assert.Panics(t, func() { algorithm.Run() })
 }
@@ -65,7 +69,7 @@ func TestAlgorithmWithoutMutation(t *testing.T) {
 
 func TestAlgorithmWithoutInsert(t *testing.T) {
 	algorithm := getValidAlgorithm()
-	algorithm.Insert = nil
+	algorithm.Insertion = nil
 
 	assert.Panics(t, func() { algorithm.Run() })
 }

@@ -2,7 +2,6 @@ package chromosomes
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 )
 
@@ -42,11 +41,6 @@ func insertAt(chromosome Chromosome, pop Population, index int) Population {
 
 	pop = append(pop[:index],
 		append(Population{chromosome}, pop[index:]...)...)
-
-	fmt.Println("insert at a new index ", index)
-
-	fmt.Println("pop is ", pop)
-	fmt.Println("chromosome is ", chromosome)
 
 	return pop
 }

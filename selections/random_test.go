@@ -8,8 +8,12 @@ import (
 )
 
 var (
-	randomSelectTwo  Selection = RandomSelection(2)
-	randomSelectFour Selection = RandomSelection(4)
+	randomSelectTwo Random = Random{
+		ParentNumber: 2,
+	}
+	randomSelectFour Random = Random{
+		ParentNumber: 4,
+	}
 )
 
 func getTestPopulation() Population {
@@ -40,7 +44,7 @@ func getTestPopulation() Population {
 
 func TestValidRandomSelectionLength(t *testing.T) {
 	pop := getTestPopulation()
-	parentsWithTwoChromosome := randomSelectTwo(&pop)
+	parentsWithTwoChromosome := randomSelectTwo.Select(&pop)
 
 	assert.Equal(t, len(parentsWithTwoChromosome), 2)
 }
@@ -49,7 +53,7 @@ func TestNotValidRandomSelectionLength(t *testing.T) {
 	pop := getTestPopulation()
 
 	assert.Panics(t, func() {
-		randomSelectFour(&pop)
+		randomSelectFour.Select(&pop)
 	})
 
 }

@@ -5,6 +5,10 @@ import (
 	"math/rand"
 )
 
+type Uniform struct {
+	ChildrenNumber int
+}
+
 func pickAParentWithUniformProbability(parents *Population) Chromosome {
 	probability := rand.Float64()
 
@@ -14,25 +18,23 @@ func pickAParentWithUniformProbability(parents *Population) Chromosome {
 	return (*parents)[chosenParentIndex]
 }
 
-func Uniform(childrenNumber int) CrossOver {
-	return func(pop *Population) Population {
-		children := make(Population, 0)
+func (c *Uniform) Cross(pop *Population) Population {
+	children := make(Population, 0)
 
-		// Produce childrenNumber children
-		for childIndex := 0; childIndex < childrenNumber; childIndex++ {
+	// Produce childrenNumber children
+	for childIndex := 0; childIndex < c.ChildrenNumber; childIndex++ {
 
-			// Create a child
-			child := NewChromosome()
-			child.Alleles = make([]bool, len((*pop)[childIndex].Alleles))
+		// Create a child
+		child := NewChromosome()
+		child.Alleles = make([]bool, len((*pop)[childIndex].Alleles))
 
-			for alleleIndex := range child.Alleles {
-				chosenParent := pickAParentWithUniformProbability(pop)
-				child.Alleles[alleleIndex] = chosenParent.Alleles[alleleIndex]
-			}
-
-			children = append(children, child)
+		for alleleIndex := range child.Alleles {
+			chosenParent := pickAParentWithUniformProbability(pop)
+			child.Alleles[alleleIndex] = chosenParent.Alleles[alleleIndex]
 		}
 
-		return children
+		children = append(children, child)
 	}
+
+	return children
 }

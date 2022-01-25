@@ -49,7 +49,9 @@ func TestAddChildren(t *testing.T) {
 	parents := getBaseParents()
 	children := getBaseChildren()
 
-	newParents := AddChildren(parents, children)
+	insertion := Add{}
+
+	newParents := insertion.Insert(parents, children)
 	assert.Equal(t, len(newParents), len(parents)+len(children))
 }
 
@@ -60,8 +62,10 @@ func TestTwoAddChildren(t *testing.T) {
 
 	var newParents Population = parents
 
+	insertion := Add{}
+
 	for i := 0; i < iterations; i++ {
-		newParents = AddChildren(newParents, children)
+		newParents = insertion.Insert(newParents, children)
 	}
 
 	assert.Equal(t, len(newParents), len(parents)+iterations*len(children))

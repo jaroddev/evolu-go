@@ -5,22 +5,24 @@ import (
 	"math/rand"
 )
 
+type Random struct {
+	ParentNumber int
+}
+
 // How can we test random behaviour ???
-func RandomSelection(parentNumber int) Selection {
-	return func(pop *Population) Population {
-		if parentNumber > len((*pop)) {
-			panic("Not Enough population element")
-		}
-
-		parents := make(Population, 0, parentNumber)
-
-		picks := rand.Perm(len(*pop))
-		picks = picks[:parentNumber]
-
-		for _, pick := range picks {
-			parents = append(parents, (*pop)[pick])
-		}
-
-		return parents
+func (r *Random) Select(pop *Population) Population {
+	if r.ParentNumber > len((*pop)) {
+		panic("Not Enough population element")
 	}
+
+	parents := make(Population, 0, r.ParentNumber)
+
+	picks := rand.Perm(len(*pop))
+	picks = picks[:r.ParentNumber]
+
+	for _, pick := range picks {
+		parents = append(parents, (*pop)[pick])
+	}
+
+	return parents
 }
