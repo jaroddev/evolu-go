@@ -2,6 +2,7 @@ package genetic
 
 import (
 	. "evolugo/chromosomes"
+	"fmt"
 )
 
 type Mutation interface {
@@ -40,14 +41,25 @@ type GA struct {
 }
 
 func (algorithm *GA) updateBest() {
+	updated := false
+
 	if algorithm.Best == nil {
 		algorithm.Best = &algorithm.Pop[0]
 	}
 
 	for index := range algorithm.Pop {
 		if algorithm.Best.Fitness < algorithm.Pop[index].Fitness {
+			fmt.Println("updated")
+
 			algorithm.Best = &algorithm.Pop[index]
+			updated = true
 		}
+	}
+
+	if updated {
+		algorithm.LastUpdate = 0
+	} else {
+		algorithm.LastUpdate++
 	}
 }
 

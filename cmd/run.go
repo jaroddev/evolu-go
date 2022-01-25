@@ -39,6 +39,6 @@ func main() {
 		fmt.Printf("%d : %d - %d \n", index, chromosome.Age, int(chromosome.Fitness))
 	}
 
-	fmt.Println("Best is => ", algorithm.Best)
+	fmt.Println("Best is => ", *algorithm.Best, " last update :", algorithm.LastUpdate)
 
 }
