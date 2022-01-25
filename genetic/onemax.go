@@ -13,6 +13,13 @@ type OneMax struct {
 	NotUpdatedFor int
 }
 
+func (problem *OneMax) Attach(algorithm *GA) {
+	// problem specific
+	algorithm.Init = problem.Init
+	algorithm.Fit = problem.Fit
+	algorithm.Continue = problem.Continue
+}
+
 func (o *OneMax) Init() Population {
 	pop := make(Population, o.InitPopLength)
 

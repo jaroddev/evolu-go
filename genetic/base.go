@@ -39,18 +39,6 @@ type GA struct {
 	Insertion Insertion
 }
 
-type GAOption func(*GA)
-
-func NewGA(options ...GAOption) *GA {
-	var algorithm GA
-
-	for _, option := range options {
-		option(&algorithm)
-	}
-
-	return &algorithm
-}
-
 func (algorithm *GA) cycleEnd() {
 	algorithm.Cycle++
 	for index := range algorithm.Pop {

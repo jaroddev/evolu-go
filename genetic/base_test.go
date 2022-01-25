@@ -11,14 +11,17 @@ import (
 )
 
 func getValidOneMaxTemplate() *GA {
-	return NewGA(
-		WithTemplates(&OneMax{
-			InitPopLength: 2,
-			AlleleLength:  8,
-			MaxCycle:      20,
-			NotUpdatedFor: 200,
-		}),
-	)
+	onemax := &OneMax{
+		InitPopLength: 2,
+		AlleleLength:  8,
+		MaxCycle:      20,
+		NotUpdatedFor: 200,
+	}
+
+	algorithm := &GA{}
+	onemax.Attach(algorithm)
+
+	return algorithm
 }
 
 func getValidAlgorithm() *GA {
