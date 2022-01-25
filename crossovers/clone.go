@@ -9,6 +9,7 @@ type Clone struct {
 }
 
 // Should be cloning best only ???
+// Is it used as a way to disable crossovers
 func (c *Clone) Cross(pop *Population) Population {
 
 	if c.ChildrenNumber > len((*pop)) || c.ChildrenNumber > cap((*pop)) {

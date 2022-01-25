@@ -36,7 +36,7 @@ func main() {
 	algorithm.Run()
 
 	for index, chromosome := range algorithm.Pop {
-		fmt.Println(index, " : ", chromosome)
+		fmt.Printf("%d : %d - %d \n", index, chromosome.Age, int(chromosome.Fitness))
 	}
 
 	fmt.Println("Best is => ", algorithm.Best)

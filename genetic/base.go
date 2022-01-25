@@ -39,6 +39,18 @@ type GA struct {
 	Insertion Insertion
 }
 
+func (algorithm *GA) updateBest() {
+	if algorithm.Best == nil {
+		algorithm.Best = &algorithm.Pop[0]
+	}
+
+	for index := range algorithm.Pop {
+		if algorithm.Best.Fitness < algorithm.Pop[index].Fitness {
+			algorithm.Best = &algorithm.Pop[index]
+		}
+	}
+}
+
 func (algorithm *GA) cycleEnd() {
 	algorithm.Cycle++
 	for index := range algorithm.Pop {
@@ -47,7 +59,6 @@ func (algorithm *GA) cycleEnd() {
 }
 
 func (algorithm *GA) Run() {
-	filter := &GetBest{}
 	algorithm.Cycle = 0
 	algorithm.Pop = algorithm.Init()
 
@@ -55,12 +66,19 @@ func (algorithm *GA) Run() {
 		algorithm.Fit(&algorithm.Pop[index])
 	}
 
-	algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
+	algorithm.updateBest()
 
 	for algorithm.Continue(algorithm) {
 		originalParent := algorithm.Selection.Select(&algorithm.Pop)
-		parents := make(Population, len(originalParent))
-		copy(parents, originalParent)
+		parents := make(Population, 0)
+
+		// reset age of the parents
+		for index := range originalParent {
+			parents = append(
+				parents,
+				GetChildOf(originalParent[index]),
+			)
+		}
 
 		children := algorithm.Crossover.Cross(&parents)
 
@@ -71,7 +89,7 @@ func (algorithm *GA) Run() {
 
 		algorithm.Pop = algorithm.Insertion.Insert(algorithm.Pop, children)
 
-		algorithm.Best = &FilterWithLimit(algorithm.Pop, filter, 1)[0]
+		algorithm.updateBest()
 
 		algorithm.cycleEnd()
 	}
