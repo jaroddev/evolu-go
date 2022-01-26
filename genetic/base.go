@@ -2,7 +2,6 @@ package genetic
 
 import (
 	. "evolugo/chromosomes"
-	"fmt"
 )
 
 type Mutation interface {
@@ -24,8 +23,8 @@ type Insertion interface {
 type GA struct {
 	Pop Population
 	// Best chromosome
-	Best  *Chromosome
-	Cycle int
+	Best       *Chromosome
+	Generation int
 	// Last cycle the
 	LastUpdate int
 
@@ -49,8 +48,6 @@ func (algorithm *GA) updateBest() {
 
 	for index := range algorithm.Pop {
 		if algorithm.Best.Fitness < algorithm.Pop[index].Fitness {
-			fmt.Println("updated")
-
 			algorithm.Best = &algorithm.Pop[index]
 			updated = true
 		}
@@ -64,14 +61,14 @@ func (algorithm *GA) updateBest() {
 }
 
 func (algorithm *GA) cycleEnd() {
-	algorithm.Cycle++
+	algorithm.Generation++
 	for index := range algorithm.Pop {
 		algorithm.Pop[index].Age++
 	}
 }
 
 func (algorithm *GA) Run() {
-	algorithm.Cycle = 0
+	algorithm.Generation = 0
 	algorithm.Pop = algorithm.Init()
 
 	for index := range algorithm.Pop {

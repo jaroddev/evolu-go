@@ -55,9 +55,9 @@ func (o *OneMax) Continue(algorithm *GA) bool {
 	// if return false then the algorithm stop
 
 	// Stop if cycle number is higher than 80
-	return algorithm.Cycle < o.MaxCycle &&
+	return algorithm.Generation < o.MaxCycle &&
 		// or if there were no update for at least 20 cycles
-		// algorithm.Cycle-algorithm.LastUpdate < o.NotUpdatedFor &&
+		// algorithm.Generation-algorithm.LastUpdate < o.NotUpdatedFor &&
 		// or if
 		algorithm.Best.Fitness < float64(len(algorithm.Best.Alleles))
 }
