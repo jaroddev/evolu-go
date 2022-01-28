@@ -16,11 +16,10 @@ func NewChromosome() Chromosome {
 
 func GetChildOf(chromosome Chromosome) Chromosome {
 	child := NewChromosome()
-	child.Alleles = make([]bool, 0)
+	child.Fitness = chromosome.Fitness
 
-	for i := range chromosome.Alleles {
-		child.Alleles = append(child.Alleles, chromosome.Alleles[i])
-	}
+	child.Alleles = make([]bool, len(chromosome.Alleles))
+	copy(child.Alleles, chromosome.Alleles)
 
 	return child
 }

@@ -27,12 +27,6 @@ func TestChildHasDefaultAge(t *testing.T) {
 	assert.Equal(t, child.Age, 0)
 }
 
-func TestChildHasDefaultFitness(t *testing.T) {
-	child := getSampledChild()
-
-	assert.Equal(t, child.Fitness, float64(0))
-}
-
 func TestChildHasSameAlleleValues(t *testing.T) {
 	child := getSampledChild()
 
