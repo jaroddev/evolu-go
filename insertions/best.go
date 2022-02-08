@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+// Should be refactored !!!
 type Elitist struct{}
 
 func (e *Elitist) Insert(pop Population, children Population) Population {

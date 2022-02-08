@@ -8,10 +8,10 @@ import (
 )
 
 var (
-	selectTwo SelectFirst = SelectFirst{
+	selectTwo SelectBest = SelectBest{
 		ParentNumber: 2,
 	}
-	selectFour SelectFirst = SelectFirst{
+	selectFour SelectBest = SelectBest{
 		ParentNumber: 4,
 	}
 

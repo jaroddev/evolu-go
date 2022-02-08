@@ -14,7 +14,7 @@ func (t *Tournament) Select(pop *Population) Population {
 	random := Random{
 		ParentNumber: t.Participant,
 	}
-	selection := SelectFirst{
+	selection := SelectBest{
 		ParentNumber: t.Winner,
 	}
 

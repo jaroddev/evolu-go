@@ -27,7 +27,7 @@ func getValidOneMaxTemplate() *GA {
 func getValidAlgorithm() *GA {
 	algorithm := getValidOneMaxTemplate()
 
-	algorithm.Selection = &SelectFirst{
+	algorithm.Selection = &SelectBest{
 		ParentNumber: 2,
 	}
 	algorithm.Crossover = &Clone{ChildrenNumber: 2}

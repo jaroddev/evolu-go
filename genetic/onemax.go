@@ -13,6 +13,17 @@ type OneMax struct {
 	NotUpdatedFor int
 }
 
+// This is the base config to test the different configurations
+// No need to configure this
+func NewBasicConfig() *OneMax {
+	return &OneMax{
+		InitPopLength: 2,
+		AlleleLength:  1000,
+		MaxCycle:      1500,
+		NotUpdatedFor: -1,
+	}
+}
+
 func (problem *OneMax) Attach(algorithm *GA) {
 	// problem specific
 	algorithm.Init = problem.Init
@@ -21,6 +32,18 @@ func (problem *OneMax) Attach(algorithm *GA) {
 }
 
 func (o *OneMax) Init() Population {
+	pop := make(Population, o.InitPopLength)
+
+	for index := range pop {
+		chromosome := NewChromosome()
+		chromosome.Alleles = make([]bool, o.AlleleLength)
+		pop[index] = chromosome
+	}
+
+	return pop
+}
+
+func (o *OneMax) RandomInit() Population {
 	pop := make(Population, o.InitPopLength)
 
 	for index := range pop {

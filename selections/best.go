@@ -4,14 +4,15 @@ import (
 	. "evolugo/chromosomes"
 )
 
-type SelectFirst struct {
+type SelectBest struct {
+	filter       GetBest
 	ParentNumber int
 }
 
-func (selection *SelectFirst) Select(p *Population) Population {
+func (selection *SelectBest) Select(p *Population) Population {
 	if selection.ParentNumber > len((*p)) || selection.ParentNumber > cap((*p)) {
 		return (*p)[:len((*p))]
 	}
 
-	return (*p)[:selection.ParentNumber]
+	return FilterWithLimit(*p, &selection.filter, selection.ParentNumber)
 }
