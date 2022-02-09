@@ -1,6 +1,8 @@
 package genetic
 
 import (
+	"math/rand"
+
 	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
@@ -31,6 +33,11 @@ type GA struct {
 	Generation int
 	// Last cycle the
 	LastUpdate int
+
+	// Probability that crossover happens
+	Cp float64
+	// Probability that mutation happens
+	Mp float64
 
 	Init func() Population
 	Fit  func(*Chromosome)
@@ -78,7 +85,6 @@ func (algorithm *GA) newGeneration() {
 	originalParent := algorithm.Selection.Select(&algorithm.Pop)
 	parents := make(Population, 0)
 
-	// reset age of the parents
 	for index := range originalParent {
 		parents = append(
 			parents,
@@ -86,11 +92,17 @@ func (algorithm *GA) newGeneration() {
 		)
 	}
 
-	children := algorithm.Crossover.Cross(&parents)
+	children := parents
+	if algorithm.Cp > rand.Float64() {
+		// if crossover happens then override children
+		children = algorithm.Crossover.Cross(&parents)
+	}
 
-	for index := range children {
-		algorithm.Mutation.Mutate(&children[index])
-		algorithm.Fit(&children[index])
+	if algorithm.Mp > rand.Float64() {
+		for index := range children {
+			algorithm.Mutation.Mutate(&children[index])
+			algorithm.Fit(&children[index])
+		}
 	}
 
 	algorithm.Pop = algorithm.Insertion.Insert(algorithm.Pop, children)
