@@ -1,11 +1,12 @@
 package genetic
 
 import (
-	. "evolugo/crossovers"
-	"evolugo/insertions"
-	. "evolugo/mutations"
-	. "evolugo/selections"
 	"testing"
+
+	. "github.com/jaroddev/evolugo/crossovers"
+	"github.com/jaroddev/evolugo/insertions"
+	. "github.com/jaroddev/evolugo/mutations"
+	. "github.com/jaroddev/evolugo/selections"
 
 	"github.com/stretchr/testify/assert"
 )

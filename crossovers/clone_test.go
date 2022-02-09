@@ -1,8 +1,9 @@
 package crossovers
 
 import (
-	. "evolugo/chromosomes"
 	"testing"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 
 	"github.com/stretchr/testify/assert"
 )

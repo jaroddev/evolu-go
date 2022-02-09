@@ -1,8 +1,9 @@
 package mutations
 
 import (
-	. "evolugo/chromosomes"
 	"math/rand"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 // Most basic mutationn needs to be parametered

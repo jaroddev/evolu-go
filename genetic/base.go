@@ -1,7 +1,7 @@
 package genetic
 
 import (
-	. "evolugo/chromosomes"
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type Mutation interface {

@@ -1,4 +1,4 @@
-module evolugo
+module github.com/jaroddev/evolugo
 
 go 1.17
 

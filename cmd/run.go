@@ -1,16 +1,19 @@
 package main
 
 import (
-	. "evolugo/crossovers"
-	"evolugo/genetic"
-	. "evolugo/genetic"
-	. "evolugo/insertions"
-	. "evolugo/mutations"
-	"evolugo/record"
-	. "evolugo/selections"
 	"math/rand"
 	"time"
+
+	. "github.com/jaroddev/evolugo/crossovers"
+	"github.com/jaroddev/evolugo/genetic"
+	. "github.com/jaroddev/evolugo/genetic"
+	. "github.com/jaroddev/evolugo/insertions"
+	. "github.com/jaroddev/evolugo/mutations"
+	"github.com/jaroddev/evolugo/record"
+	. "github.com/jaroddev/evolugo/selections"
 )
+
+// basic config is best-three-clone-elitist.csv
 
 func main() {
 

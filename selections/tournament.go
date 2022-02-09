@@ -1,7 +1,7 @@
 package selections
 
 import (
-	. "evolugo/chromosomes"
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type Tournament struct {

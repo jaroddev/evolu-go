@@ -1,8 +1,9 @@
 package crossovers
 
 import (
-	. "evolugo/chromosomes"
 	"math/rand"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type Uniform struct {

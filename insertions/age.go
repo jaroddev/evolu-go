@@ -1,7 +1,7 @@
 package insertions
 
 import (
-	. "evolugo/chromosomes"
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type ReplaceOldest struct{}

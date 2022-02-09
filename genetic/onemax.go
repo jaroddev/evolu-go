@@ -1,8 +1,9 @@
 package genetic
 
 import (
-	. "evolugo/chromosomes"
 	"math/rand"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type OneMax struct {

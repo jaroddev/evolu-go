@@ -1,8 +1,9 @@
 package insertions
 
 import (
-	. "evolugo/chromosomes"
 	"sort"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 // Should be refactored !!!

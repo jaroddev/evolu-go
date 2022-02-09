@@ -1,7 +1,7 @@
 package crossovers
 
 import (
-	. "evolugo/chromosomes"
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type Clone struct {

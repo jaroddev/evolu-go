@@ -1,8 +1,9 @@
 package selections
 
 import (
-	. "evolugo/chromosomes"
 	"math/rand"
+
+	. "github.com/jaroddev/evolugo/chromosomes"
 )
 
 type Random struct {
