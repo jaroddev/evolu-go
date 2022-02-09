@@ -1,6 +1,7 @@
 package mutations
 
 import (
+	"math/rand"
 	"testing"
 
 	. "github.com/jaroddev/evolugo/chromosomes"
@@ -81,4 +82,21 @@ func TestBitFlipWithOneAlleledChromosome(t *testing.T) {
 
 	assert.Equal(t, len(oneAllele.Alleles), 1)
 	assert.Contains(t, oneAllele.Alleles, true)
+}
+
+func TestBitFlipWithAnEightAlleledChromosome(t *testing.T) {
+	rand.Seed(4)
+
+	chromosome := Chromosome{
+		Age:     0,
+		Fitness: 0,
+		Alleles: make([]bool, 8),
+	}
+
+	flip := &BitFlip{}
+
+	flip.Mutate(&chromosome)
+
+	assert.Equal(t, len(chromosome.Alleles), 8)
+	assert.Contains(t, chromosome.Alleles, true)
 }

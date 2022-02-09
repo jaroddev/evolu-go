@@ -32,7 +32,7 @@ type BitFlip struct{}
 func (mutation *BitFlip) Mutate(c *Chromosome) {
 
 	// If higher than this then flip the allele
-	mutationProbability := 1 - 1/len(c.Alleles)
+	mutationProbability := 1 - 1.0/float64(len(c.Alleles))
 
 	// Try to mutate each flips
 	for index := range c.Alleles {
